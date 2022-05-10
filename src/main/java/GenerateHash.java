@@ -17,7 +17,7 @@ public class GenerateHash {
         }
     }
 
-    public int hash(int x)
+    public int hash1(int x, int size)
     {
         int hash = 0;
         for (int i = 0; i < m; i++)
@@ -25,7 +25,7 @@ public class GenerateHash {
             hash = hash<<1;
             hash = hash | parity(x & hashMatrix[i]);
         }
-        return hash;
+        return (int) (hash % Math.pow(size, 2));
     }
 
     private int parity(int p) {
@@ -39,9 +39,13 @@ public class GenerateHash {
     }
 
     public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         GenerateHash h = new GenerateHash(8);
         System.out.println(Arrays.toString(h.hashMatrix));
-        System.out.println(h.hash(3));
+        for (int i = 0; i < numbers.length; i++)
+        {
+            System.out.println(h.hash1(numbers[i], numbers.length));
+        }
     }
 
 }

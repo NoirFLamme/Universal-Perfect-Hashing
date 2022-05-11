@@ -37,6 +37,7 @@ public class StaticHashTable {
             {
                 i = 0;
                 reset();
+                setHashFunction();
             }
         }
     }

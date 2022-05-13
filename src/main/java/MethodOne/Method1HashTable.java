@@ -9,6 +9,7 @@ public class Method1HashTable {
     private final int[] table;
     private final boolean[] visited;
     private int[] hashMatrix;
+    private int collisionsCounter = 0;
 
     public Method1HashTable(int[] values)
     {
@@ -17,6 +18,10 @@ public class Method1HashTable {
         this.visited = new boolean[(int) Math.pow(dictSize, 2)];
         this.m = (int) Math.ceil(Math.log(Math.pow(dictSize, 2)) / Math.log(2));
         buildHashTable(values);
+    }
+
+    public int getCollisionsCounter() {
+        return this.collisionsCounter;
     }
 
     private void buildHashTable(int[] values)
@@ -29,6 +34,7 @@ public class Method1HashTable {
             i++;
             if (!flag)
             {
+                this.collisionsCounter++;
                 i = 0;
                 reset();
                 setHashFunction();

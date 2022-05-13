@@ -23,5 +23,7 @@ public class Driver {
 
         }
 
+        System.out.println("\nCollisions: " + table.getCollisionsCounter() + " of total: " + size);
+
     }
 }

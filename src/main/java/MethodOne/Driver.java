@@ -12,7 +12,7 @@ public class Driver {
         }
 
 //        int[] values = {1, 2, 3, 4, 5, 20, 12312,123154,235633,3452342,341};
-        StaticHashTable table = new StaticHashTable(values);
+        Method1HashTable table = new Method1HashTable(values);
         for (int i=0; i < size; i++) {
             boolean found = table.search(values[i]);
             if(found)

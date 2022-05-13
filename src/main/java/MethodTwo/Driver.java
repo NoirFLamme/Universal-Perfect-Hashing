@@ -1,7 +1,6 @@
 package MethodTwo;
 
-import MethodOne.StaticHashTable;
-
+import java.sql.Time;
 import java.util.Random;
 
 public class Driver {
@@ -13,15 +12,18 @@ public class Driver {
             values[i] = random.nextInt();
         }
 
-//        int[] values = {1, 2, 3, 4, 5, 20, 12312,123154,235633,3452342,341};
-        HashTableON table = new HashTableON(values);
+        Method2HashTable table = new Method2HashTable(values);
         for (int i=0; i < size; i++) {
             boolean found = table.search(values[i]);
-            if(!found)
+            if(!found) {
                 System.out.println("NOT FOUND " + values[i]);
-            else
+            }
+            else {
                 System.out.println("Found " + values[i]);
+            }
         }
+
+
 
 //        System.out.println("\n\n\n");
 //        for (int i=0; i < size; i++) {

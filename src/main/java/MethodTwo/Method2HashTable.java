@@ -1,16 +1,16 @@
 package MethodTwo;
 
-import MethodOne.StaticHashTable;
+import MethodOne.Method1HashTable;
 import java.util.*;
 
-public class HashTableON {
-    private final StaticHashTable[] table;
+public class Method2HashTable {
+    private final Method1HashTable[] table;
     private final int m;
     private int[] hashMatrix;
 
-    public HashTableON(int[] values) {
+    public Method2HashTable(int[] values) {
         this.m = values.length;
-        this.table = new StaticHashTable[m];
+        this.table = new Method1HashTable[m];
         setHashFunction();
         buildHashTable(values);
     }
@@ -24,26 +24,36 @@ public class HashTableON {
     }
 
     private void buildHashTable(int[] keys) {
-        LinkedList<Integer>[] temp = new LinkedList[m];
+        ArrayList<Integer>[] entries = createArrayOfLinkedList(keys);
+
+        for (int i=0; i < entries.length; i++) {
+            ArrayList<Integer> entryList = entries[i];
+
+            if (entryList == null) continue;
+            table[i] = new Method1HashTable(castToArray(entryList));
+        }
+    }
+
+    private int[] castToArray(ArrayList<Integer> list) {
+        int[] arr = new int[list.size()];
+        for (int i=0; i<list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+
+    private ArrayList<Integer>[] createArrayOfLinkedList(int[] keys) {
+        ArrayList<Integer>[] arr = new ArrayList[m];
 
         for (int key: keys) {
             int index = hash(key);
-            if(temp[index] == null){
-                temp[index] = new LinkedList<>();
+            if(arr[index] == null){
+                arr[index] = new ArrayList<>(1/m);
             }
-            temp[index].add(key);
+            arr[index].add(key);
         }
 
-        for (int i=0; i < temp.length; i++) {
-            LinkedList<Integer> bucketList = temp[i];
-            if (bucketList == null) continue;
-
-            int[] arr = new int[bucketList.size()];
-            for (int j=0; j<bucketList.size(); j++) {
-                arr[j] = bucketList.get(j);
-            }
-            table[i] = new StaticHashTable(arr);
-        }
+        return arr;
     }
 
     private void setHashFunction() {

@@ -1,37 +1,31 @@
 package MethodOne;
 
-
-import DynamicHashTable.LinkedListBucket;
-
 import java.util.Arrays;
 import java.util.Random;
 
-public class StaticHashTable {
-    private int[] values;
-    private int dictSize;
-    private int m; // table size
-    private int[] hashTable;
-    private boolean[] visited;
+public class Method1HashTable {
+    private final int m; // table size
+    private final int dictSize;
+    private final int[] table;
+    private final boolean[] visited;
     private int[] hashMatrix;
 
-    public StaticHashTable(int[] values)
+    public Method1HashTable(int[] values)
     {
-        this.values = values;
         this.dictSize = values.length;
-        this.hashTable = new int[(int) Math.pow(dictSize, 2)];
+        this.table = new int[(int) Math.pow(dictSize, 2)];
         this.visited = new boolean[(int) Math.pow(dictSize, 2)];
         this.m = (int) Math.ceil(Math.log(Math.pow(dictSize, 2)) / Math.log(2));
-        buildHashTable();
+        buildHashTable(values);
     }
 
-
-    private void buildHashTable()
+    private void buildHashTable(int[] values)
     {
         setHashFunction();
         int i = 0;
         while (i < this.dictSize)
         {
-            boolean flag = insert(this.values[i]);
+            boolean flag = insert(values[i]);
             i++;
             if (!flag)
             {
@@ -49,25 +43,17 @@ public class StaticHashTable {
 
     public boolean search(int key) {
         int index = hash(key);
-        if (hashTable[index] == key)
-        {
-            return true;
-        }
-        return false;
+        return table[index] == key;
     }
 
     private boolean insert(int key)
     {
         int index = hash(key);
         if (this.visited[index])
-        {
             return false;
-        }
-        else
-        {
-            this.hashTable[index] = key;
-            this.visited[index] = true;
-        }
+
+        this.table[index] = key;
+        this.visited[index] = true;
         return true;
     }
 

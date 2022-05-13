@@ -1,6 +1,6 @@
 package DynamicHashTable;
 
-public class Runner {
+public class Driver {
 
     public static void main(String[] args) {
         DynamicHashTable ht = new DynamicHashTable();

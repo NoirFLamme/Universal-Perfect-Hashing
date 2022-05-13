@@ -24,13 +24,22 @@ public class Method2HashTable {
     }
 
     private void buildHashTable(int[] keys) {
-        ArrayList<Integer>[] entries = createArrayOfLinkedList(keys);
+        ArrayList<Integer>[] entryKeys = new ArrayList[m];
 
-        for (int i=0; i < entries.length; i++) {
-            ArrayList<Integer> entryList = entries[i];
+        for (int key: keys) {
+            int index = hash(key);
 
-            if (entryList == null) continue;
-            table[i] = new Method1HashTable(castToArray(entryList));
+            if (table[index] == null) {
+                table[index] = new Method1HashTable(new int[]{key});
+                entryKeys[index] = new ArrayList<>();
+                entryKeys[index].add(key);
+            }
+            else {
+                entryKeys[index].add(key);
+                // make a new array of the updated entryKeys
+                int[] arr = castToArray(entryKeys[index]);
+                table[index] = new Method1HashTable(arr);
+            }
         }
     }
 
@@ -39,20 +48,6 @@ public class Method2HashTable {
         for (int i=0; i<list.size(); i++) {
             arr[i] = list.get(i);
         }
-        return arr;
-    }
-
-    private ArrayList<Integer>[] createArrayOfLinkedList(int[] keys) {
-        ArrayList<Integer>[] arr = new ArrayList[m];
-
-        for (int key: keys) {
-            int index = hash(key);
-            if(arr[index] == null){
-                arr[index] = new ArrayList<>(1/m);
-            }
-            arr[index].add(key);
-        }
-
         return arr;
     }
 
@@ -73,7 +68,7 @@ public class Method2HashTable {
             hash = hash<<1;
             hash = hash | parity(key & hashMatrix[i]);
         }
-        hash = hash  & Integer.MAX_VALUE; // zero out the sign bit
+        hash = hash & Integer.MAX_VALUE; // zero out the sign bit
         return hash % m;
     }
 

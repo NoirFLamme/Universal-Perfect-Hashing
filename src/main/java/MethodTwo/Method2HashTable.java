@@ -7,6 +7,7 @@ public class Method2HashTable {
     private final Method1HashTable[] table;
     private final int m;
     private int[] hashMatrix;
+    private int collisionsCounter = 0;
 
     public Method2HashTable(int[] values) {
         this.m = values.length;
@@ -23,6 +24,10 @@ public class Method2HashTable {
         return table[index].search(key);
     }
 
+    public int getCollisionsCounter() {
+        return collisionsCounter;
+    }
+
     private void buildHashTable(int[] keys) {
         ArrayList<Integer>[] entryKeys = new ArrayList[m];
 
@@ -35,6 +40,7 @@ public class Method2HashTable {
                 entryKeys[index].add(key);
             }
             else {
+                collisionsCounter++;
                 entryKeys[index].add(key);
                 // make a new array of the updated entryKeys
                 int[] arr = castToArray(entryKeys[index]);

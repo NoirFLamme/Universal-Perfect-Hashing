@@ -5,6 +5,7 @@ import java.util.Random;
 public class Driver {
     public static void main(String[] args) {
         int size = 10000;
+        
         int[] values = new int[size];
         Random random = new Random();
         for (int i=0; i < size; i++) {
@@ -22,6 +23,8 @@ public class Driver {
                 System.out.println("Found " + values[i]);
             }
         }
+
+        System.out.println("\nCollisions: " + table.getCollisionsCounter() + " of total: " + size);
 
     }
 }
